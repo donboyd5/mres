@@ -1,0 +1,90 @@
+---
+title: "Surprising html, pdf, and docx rendering behavior with R gt table objects"
+number-sections: true
+toc: true
+
+format: 
+  html: default
+  pdf: default
+  docx: default
+    
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+library(gt)
+# devtools::session_info()
+# devtools::package_info()
+# quarto render gt_quarto_mre.qmd
+
+df <- tibble(rank=1:10, money=seq(100, 1000, 100))
+
+
+```
+
+
+## Environment
+
+- Windows 10 x64 (build 22598)
+- R version 4.1.3 (2022-03-10)
+- RStudio-2022.06.0-daily-310.exe
+- quarto-0.9.282-win.msi
+- gt * 0.4.0  2022-02-15 [1] CRAN (R 4.1.2)
+
+
+\newpage
+## SHOW gt object but do not save
+
+-   as html, text and table render
+-   as pdf, text and table render
+-   as docx, text renders but table does NOT render(!)
+
+```{r}
+
+tab <- df %>% 
+  mutate(type="SHOW gt object but do NOT save") %>%
+  gt() %>% 
+  cols_label(rank="Rank", money="Amount")
+
+tab
+
+```
+
+
+\newpage
+## SAVE gt object but do NOT show
+
+- as html, text renders, and table object renders (!), differently, as if retrieved from file
+- as pdf, same as html
+- as docx, same as html
+
+```{r}
+
+tab <- df %>% 
+  mutate(type="SAVE gt object but do NOT show") %>%
+  gt() %>% 
+  cols_label(rank="Rank", money="Amount")
+
+gtsave(tab, "tab.png")
+
+```
+
+\newpage
+## Retrieve and SHOW previously saved gt object
+
+- as html, table object renders, but differently than when created and shown
+- as pdf, same as html
+- as docx, same as html
+
+![](tab.png)
+
+## Sessioninfo
+
+```{r}
+sessionInfo()
+```
+
+
