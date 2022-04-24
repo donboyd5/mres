@@ -1,0 +1,90 @@
+---
+title: "Rmd with wide DT datatable objects - DT page controls work properly"
+number-sections: true
+---
+
+## Issue
+
+When displaying wide DT::datatable in Rstudio with quarto that is **too wide** for the page:
+
+-   IF an html div widens the container,
+
+-   THEN the clickable page controls below the table, i.e.,
+
+> Previous, 1, 2, 3, 4, 5, ..., 10 Next
+
+-   do NOT work properly. For example, 1 and 10 may respond to clicks, but 2-5 may not. Or, if you click 10, making 6-9 visible, 9 will respond to a click, but 6-8 will not.
+
+-   This behavior occurs if the html is rendered and viewed in a web browser (Chrome).
+
+-   However, if the html is rendered and viewed in the viewer pane, the page controls work properly.
+
+## Environment
+
+-   Windows 10 x64 (build 22598)
+-   R version 4.1.3 (2022-03-10)
+-   RStudio-2022.06.0-daily-322.exe
+-   DT 0.22
+
+## Make data frame that will be too wide for page
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+library(DT)
+# devtools::session_info()
+# devtools::package_info()
+# quarto render gt_quarto_mre.qmd
+
+# make a wide data frame
+nvars <- 30
+ncols <- nvars + 1
+nrows <- 100
+(colnames <- c("id", paste0("x", 1:nvars)))
+
+df <- matrix(data=1:(ncols * nrows), 
+             nrow=nrows, 
+             dimnames=list(NULL, colnames)) %>%
+  as_tibble()
+
+```
+
+## Show DT object without changing page width
+
+-   page display controls work properly
+
+```{r}
+
+datatable(df)
+
+```
+
+## Show DT object with a div that has no options
+
+-   clickable page display controls work properly
+
+<div style = "">
+<!-- <div style = "width: 1200px; height:auto; margin: auto; font-size: 8pt;"> -->
+
+```{r}
+
+datatable(df)
+
+```
+</div>
+
+## Show DT object with div style = "width: 1200px;"
+
+-   this div is wider than the page
+-   clickable page display controls still work properly
+
+<div style = "width: 1200px;">
+```{r}
+
+datatable(df)
+
+```
+</div>
+

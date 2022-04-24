@@ -1,0 +1,29 @@
+# Create data
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+library(gt)
+
+df <- tibble(rank=1:10, money=seq(100, 1000, 100))
+
+```
+
+# This renders successfully as html, almost successfully as pdf, and only partially as docx
+
+-   as html everything looks correct
+
+-   as pdf, the line break does not occur
+
+-   as docx, the echoed code is shown but the table is not shown
+
+
+```{r}
+
+df %>% 
+  gt() %>% 
+  cols_label(rank=html("Rank"), money=md("Amount<br>$"))
+
+```
