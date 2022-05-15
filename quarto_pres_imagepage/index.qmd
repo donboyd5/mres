@@ -1,0 +1,59 @@
+---
+title: "Quarto reveal.js slide without title won't load image"
+format: revealjs
+editor: visual
+---
+
+## Intro
+
+Cannot create a quarto reveal.js slide with an image only (**no title** and **no text**). 
+
+Instead of showing an image-only page, it will show no page at all.
+
+It will not show an empty page.
+
+Note in the slides below I use `##` to delineate pages rather than a horizontal rule (`---`). The horizontal rule seems to get confused with yaml so `##` seems safer.
+
+There are slight differences in behavior between `##` and `---`. The former will allow a blank page with no title or image, while the latter will not allow a blank page at all.
+
+## Image appears properly on a slide with a title
+
+![](https://quarto.org/docs/authoring/images/crossref-figure.png)
+
+##
+
+Image appears properly on an **untitled** page **if the untitled page has text** (this line):
+
+![](https://quarto.org/docs/authoring/images/crossref-figure.png)
+
+But image does not appear on an untitled page that does not have any text (the next page should be an image-only page but instead we go straight to the workaround slide.).
+
+##
+![](https://quarto.org/docs/authoring/images/crossref-figure.png)
+
+##
+
+
+## Workarounds?
+
+Does putting a line with spaces before the image work? If so, there should be an image-only page right after this.
+
+---
+    
+![](https://quarto.org/docs/authoring/images/crossref-figure.png)
+
+---
+
+No. There should be an image-only page before this one.
+
+
+Does putting a comment after the image reference work? If so, there should be an image-only page right after this.
+
+---
+
+![](https://quarto.org/docs/authoring/images/crossref-figure.png)
+<!-- The line above has 4 spaces.    -->
+    
+---
+
+Yes, putting a comment after the image reference works.
