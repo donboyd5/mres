@@ -14,7 +14,7 @@ It will not show an empty page.
 
 Note in the slides below I use `##` to delineate pages rather than a horizontal rule (`---`). The horizontal rule seems to get confused with yaml so `##` seems safer.
 
-There are slight differences in behavior between `##` and `---`. The former will allow a blank page with no title or image, while the latter will not allow a blank page at all.
+There are slight differences in behavior between `##` and `---`. The former will allow a blank page with no title or image, while the latter will not allow a blank page at all. EDITED: Not sure about this. Behavior may be the same, except that `---` does seem to get confused with yaml.
 
 ## Image appears properly on a slide with a title
 
